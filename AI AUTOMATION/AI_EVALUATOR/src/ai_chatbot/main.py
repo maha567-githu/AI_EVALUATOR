@@ -11,10 +11,6 @@ llm = ChatGoogleGenerativeAI(
 )
 
 
-# ============================================================
-# QUESTION GENERATOR
-# ============================================================
-
 prompt = ChatPromptTemplate.from_messages([
     (
         "system",
@@ -64,10 +60,6 @@ Use exactly this JSON structure:
 
 question_chain = prompt | llm | StrOutputParser()
 
-
-# ============================================================
-# EVALUATOR
-# ============================================================
 evaluator_prompt = ChatPromptTemplate.from_messages([
     (
         "system",
@@ -128,10 +120,6 @@ User answers:
 evaluator_chain = evaluator_prompt | llm | StrOutputParser()
 
 
-# ============================================================
-# QUIZ
-# ============================================================
-
 def quiz():
 
     topic = input("Enter the topic: ")
@@ -148,10 +136,6 @@ def quiz():
 
     user_answers = []
 
-
-    # ========================================================
-    # 5 QUESTIONS ONE BY ONE
-    # ========================================================
 
     for index, item in enumerate(
         questions["questions"],
@@ -193,10 +177,6 @@ def quiz():
         evaluation_response = evaluation_response.replace("```", "")
     evaluation_response = evaluation_response.strip()
     evaluation = json.loads(evaluation_response)
-    
-    # ========================================================
-    # SHOW RESULT
-    # ========================================================
 
     print("\n========== QUIZ RESULT ==========\n")
 
@@ -240,10 +220,5 @@ def quiz():
         f"Overall Feedback: "
         f"{evaluation['overall_feedback']}"
     )
-
-
-# ============================================================
-# START PROGRAM
-# ============================================================
 
 quiz()
